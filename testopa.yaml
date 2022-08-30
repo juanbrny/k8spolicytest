@@ -57,12 +57,12 @@ metadata:
     operation: Update
     subresource: status
     time: "2022-08-18T09:28:32Z"
-  name: k8sallowedreposGitOps
+  name: k8sallowedrepos-gitops
 spec:
   crd:
     spec:
       names:
-        kind: K8sAllowedRepos
+        kind: K8sAllowedrepos
       validation:
         legacySchema: true
         openAPIV3Schema:
