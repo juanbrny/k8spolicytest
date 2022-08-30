@@ -24,7 +24,7 @@ metadata:
           f:scope: {}
         f:parameters: {}
     manager: agent
-    #operation: Update
+    operation: Update
     time: "2022-08-30T18:47:20Z"
   - apiVersion: constraints.gatekeeper.sh/v1beta1
     fieldsType: FieldsV1
@@ -35,7 +35,7 @@ metadata:
     manager: gatekeeper
     operation: Update
     subresource: status
-  name: gitops-rule-2
+  name: gitops-rule
 spec:
   enforcementAction: deny
   match:
