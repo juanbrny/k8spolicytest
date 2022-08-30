@@ -57,9 +57,7 @@ metadata:
     operation: Update
     subresource: status
     time: "2022-08-18T09:28:32Z"
-  name: k8sallowedrepos
-  resourceVersion: "1226837"
-  uid: 3654cd11-c999-4072-9da1-e08b5aba027a
+  name: k8sallowedreposGitOps
 spec:
   crd:
     spec:
