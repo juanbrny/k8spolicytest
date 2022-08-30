@@ -35,10 +35,7 @@ metadata:
     manager: gatekeeper
     operation: Update
     subresource: status
-    time: "2022-08-30T18:47:20Z"
   name: gitops-rule-2
-  resourceVersion: "9675366"
-  uid: afcabe0f-c160-4278-a08b-47ae7c710d2f
 spec:
   enforcementAction: deny
   match:
