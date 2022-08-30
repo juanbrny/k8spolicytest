@@ -1,91 +1,56 @@
-apiVersion: templates.gatekeeper.sh/v1
-kind: ConstraintTemplate
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sAllowedRepos
 metadata:
-  annotations:
-    meta.helm.sh/release-name: rancher-gatekeeper
-    meta.helm.sh/release-namespace: cattle-gatekeeper-system
-  creationTimestamp: "2022-08-18T09:28:06Z"
+  creationTimestamp: "2022-08-30T18:47:20Z"
   generation: 1
-  labels:
-    app.kubernetes.io/managed-by: Helm
   managedFields:
-  - apiVersion: templates.gatekeeper.sh/v1beta1
+  - apiVersion: constraints.gatekeeper.sh/v1beta1
     fieldsType: FieldsV1
     fieldsV1:
-      f:metadata:
-        f:annotations:
-          .: {}
-          f:meta.helm.sh/release-name: {}
-          f:meta.helm.sh/release-namespace: {}
-        f:labels:
-          .: {}
-          f:app.kubernetes.io/managed-by: {}
       f:spec:
         .: {}
-        f:crd:
+        f:enforcementAction: {}
+        f:match:
           .: {}
-          f:spec:
+          f:excludedNamespaces: {}
+          f:kinds: {}
+          f:labelSelector:
             .: {}
-            f:names:
-              .: {}
-              f:kind: {}
-            f:validation:
-              .: {}
-              f:legacySchema: {}
-              f:openAPIV3Schema:
-                .: {}
-                f:properties:
-                  .: {}
-                  f:repos:
-                    .: {}
-                    f:items:
-                      .: {}
-                      f:type: {}
-                    f:type: {}
-        f:targets: {}
-    manager: helm
+            f:matchExpressions: {}
+          f:namespaceSelector:
+            .: {}
+            f:matchExpressions: {}
+          f:namespaces: {}
+          f:scope: {}
+        f:parameters: {}
+    manager: agent
     operation: Update
-    time: "2022-08-18T09:28:06Z"
-  - apiVersion: templates.gatekeeper.sh/v1beta1
+    time: "2022-08-30T18:47:20Z"
+  - apiVersion: constraints.gatekeeper.sh/v1beta1
     fieldsType: FieldsV1
     fieldsV1:
       f:status:
         .: {}
         f:byPod: {}
-        f:created: {}
     manager: gatekeeper
     operation: Update
     subresource: status
-    time: "2022-08-18T09:28:32Z"
-  name: k8sallowedrepos-gitops
+    time: "2022-08-30T18:47:20Z"
+  name: gitops-rule-2
+  resourceVersion: "9675366"
+  uid: afcabe0f-c160-4278-a08b-47ae7c710d2f
 spec:
-  crd:
-    spec:
-      names:
-        kind: K8sAllowedrepos-gitops
-      validation:
-        legacySchema: true
-        openAPIV3Schema:
-          properties:
-            repos:
-              items:
-                type: string
-              type: array
-  targets:
-  - rego: |
-      package k8sallowedrepos
-
-      violation[{"msg": msg}] {
-        container := input.review.object.spec.containers[_]
-        satisfied := [good | repo = input.parameters.repos[_] ; good = startswith(container.image, repo)]
-        not any(satisfied)
-        msg := sprintf("container <%v> has an invalid image repo <%v>, allowed repos are %v", [container.name, container.image, input.parameters.repos])
-      }
-
-      violation[{"msg": msg}] {
-        container := input.review.object.spec.initContainers[_]
-        satisfied := [good | repo = input.parameters.repos[_] ; good = startswith(container.image, repo)]
-        not any(satisfied)
-        msg := sprintf("container <%v> has an invalid image repo <%v>, allowed repos are %v", [container.name, container.image, input.parameters.repos])
-      }
-    target: admission.k8s.gatekeeper.sh
+  enforcementAction: deny
+  match:
+    excludedNamespaces: []
+    kinds:
+    - apiGroups:
+      - ""
+    labelSelector:
+      matchExpressions: []
+    namespaceSelector:
+      matchExpressions: []
+    namespaces:
+    - struts
+    scope: '*'
+  parameters: {}
