@@ -62,7 +62,7 @@ spec:
   crd:
     spec:
       names:
-        kind: K8sAllowedrepos
+        kind: K8sAllowedrepos-gitops
       validation:
         legacySchema: true
         openAPIV3Schema:
